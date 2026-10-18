@@ -10,6 +10,9 @@
 ### [👉 CLICK HERE TO OPEN THE GENERATOR 👈](https://github-rpg-card.github-rpg-card.workers.dev)
 
 </div>
+<div align="center">
+  <img src="https://github-rpg-card.github-rpg-card.workers.dev/?username=ZephyrProtogen&theme=cyberpunk&reload=648" alt="GitHub RPG Card" width="650" />
+</div>
 
 ---
 
