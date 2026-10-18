@@ -20,61 +20,31 @@ const RPG_CLASSES = {
 
 const THEMES = {
   cyberpunk: {
-    bg1: "#070312",
-    bg2: "#14082e",
-    grid: "rgba(0, 240, 255, 0.05)",
-    border: "#00f0ff",
-    accent: "#ff0055",
-    text: "#ffffff",
-    muted: "#7c82a8",
-    subtext: "#00f0ff",
-    panelBg: "#110926",
-    barBg: "#1d1138",
-    atk: "#ff0055",
-    def: "#00f0ff",
-    chm: "#fcee09"
+    bg1: "#070312", bg2: "#14082e", grid: "rgba(0, 240, 255, 0.05)",
+    border: "#00f0ff", accent: "#ff0055", text: "#ffffff",
+    muted: "#7c82a8", subtext: "#00f0ff", panelBg: "#110926",
+    barBg: "#1d1138", atk: "#ff0055", def: "#00f0ff", chm: "#fcee09"
   },
   matrix: {
-    bg1: "#020804",
-    bg2: "#07170b",
-    grid: "rgba(0, 255, 65, 0.05)",
-    border: "#00ff41",
-    accent: "#00cc33",
-    text: "#e6ffe6",
-    muted: "#4d8859",
-    subtext: "#00ff41",
-    panelBg: "#051208",
-    barBg: "#0b2410",
-    atk: "#00ff41",
-    def: "#39ff14",
-    chm: "#a3ffb4"
+    bg1: "#020804", bg2: "#07170b", grid: "rgba(0, 255, 65, 0.05)",
+    border: "#00ff41", accent: "#00cc33", text: "#e6ffe6",
+    muted: "#4d8859", subtext: "#00ff41", panelBg: "#051208",
+    barBg: "#0b2410", atk: "#00ff41", def: "#39ff14", chm: "#a3ffb4"
   },
   dracula: {
-    bg1: "#16171f",
-    bg2: "#242636",
-    grid: "rgba(189, 147, 249, 0.05)",
-    border: "#bd93f9",
-    accent: "#ff79c6",
-    text: "#f8f8f2",
-    muted: "#757c9c",
-    subtext: "#8be9fd",
-    panelBg: "#1d1e2b",
-    barBg: "#31344a",
-    atk: "#ff5555",
-    def: "#8be9fd",
-    chm: "#f1fa8c"
+    bg1: "#16171f", bg2: "#242636", grid: "rgba(189, 147, 249, 0.05)",
+    border: "#bd93f9", accent: "#ff79c6", text: "#f8f8f2",
+    muted: "#757c9c", subtext: "#8be9fd", panelBg: "#1d1e2b",
+    barBg: "#31344a", atk: "#ff5555", def: "#8be9fd", chm: "#f1fa8c"
   }
 };
 
 function escapeXml(unsafe) {
   return String(unsafe || "").replace(/[<>&'"]/g, (c) => {
     switch (c) {
-      case "<": return "&lt;";
-      case ">": return "&gt;";
-      case "&": return "&amp;";
-      case "'": return "&apos;";
-      case '"': return "&quot;";
-      default: return c;
+      case "<": return "&lt;"; case ">": return "&gt;";
+      case "&": return "&amp;"; case "'": return "&apos;";
+      case '"': return "&quot;"; default: return c;
     }
   });
 }
@@ -129,13 +99,9 @@ function calculateStats(user, repos) {
   else if (ovr >= 50) tier = "B-TIER";
 
   return {
-    username: user.login,
-    name: user.name || user.login,
-    rpgClass,
+    username: user.login, name: user.name || user.login, rpgClass,
     topLang: topLang === "default" ? "POLYGLOT" : topLang.toUpperCase(),
-    level,
-    tier,
-    stats: { atk, def, chm, ovr }
+    level, tier, stats: { atk, def, chm, ovr }
   };
 }
 
@@ -158,9 +124,7 @@ function renderSVG(data, avatarBase64, themeName) {
     <pattern id="barTicks" width="10" height="10" patternUnits="userSpaceOnUse">
       <line x1="10" y1="0" x2="10" y2="10" stroke="${t.bg1}" stroke-width="2" />
     </pattern>
-    <clipPath id="avatarClip">
-      <rect x="24" y="24" width="84" height="84" rx="12" />
-    </clipPath>
+    <clipPath id="avatarClip"><rect x="24" y="24" width="84" height="84" rx="12" /></clipPath>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="2.5" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
@@ -235,6 +199,8 @@ function renderSVG(data, avatarBase64, themeName) {
 }
 
 function renderLandingPage(origin) {
+  const initRand = Math.floor(Math.random() * 1000);
+  
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -381,6 +347,7 @@ function renderLandingPage(origin) {
       font-size: 13px;
       color: #00f0ff;
       word-break: break-all;
+      white-space: pre; 
     }
     .copy-btn {
       background: #00f0ff;
@@ -391,6 +358,7 @@ function renderLandingPage(origin) {
       border-radius: 8px;
       cursor: pointer;
       white-space: nowrap;
+      align-self: stretch;
     }
     .copy-btn:hover { opacity: 0.9; }
     .grid-2 {
@@ -483,10 +451,13 @@ function renderLandingPage(origin) {
       </div>
 
       <div class="code-header">
-        <span>Markdown Snippet (Paste into your README.md)</span>
+        <span>HTML Snippet (Paste into your README.md)</span>
       </div>
       <div class="code-box">
-        <div class="code-text" id="md-code">![GitHub RPG Card](${origin}/?username=ZephyrProtogen&theme=cyberpunk)</div>
+        <!-- Dodano width="650" w generowanym kodzie startowym -->
+        <div class="code-text" id="md-code">&lt;div align="center"&gt;
+  &lt;img src="${origin}/?username=ZephyrProtogen&amp;theme=cyberpunk&amp;reload=${initRand}" alt="GitHub RPG Card" width="650" /&gt;
+&lt;/div&gt;</div>
         <button class="copy-btn" id="copy-btn" onclick="copyMarkdown()">Copy Code</button>
       </div>
     </div>
@@ -506,7 +477,7 @@ function renderLandingPage(origin) {
         <h3>🚀 Quick Setup Tutorial</h3>
         <ol class="steps">
           <li>Type your <strong>GitHub Username</strong> above and pick a HUD theme (<code class="inline">cyberpunk</code>, <code class="inline">dracula</code>, or <code class="inline">matrix</code>).</li>
-          <li>Click <strong>Copy Code</strong> to grab your personalized Markdown image tag.</li>
+          <li>Click <strong>Copy Code</strong> to grab your personalized HTML image tag.</li>
           <li>Open your special GitHub profile repository (named <code class="inline">your-username/your-username</code>).</li>
           <li>Paste the snippet into your <code class="inline">README.md</code> file and commit changes — your live RPG card is now equipped!</li>
         </ol>
@@ -516,22 +487,31 @@ function renderLandingPage(origin) {
 
   <script>
     const origin = "${origin}";
+    
     function generateCard() {
       const user = document.getElementById('username').value.trim();
       const theme = document.getElementById('theme').value;
       if (!user) return alert('Please enter a GitHub username!');
       
-      const cardUrl = origin + '/?username=' + encodeURIComponent(user) + '&theme=' + theme;
-      document.getElementById('card-img').src = cardUrl;
-      document.getElementById('md-code').innerText = '![GitHub RPG Card](' + cardUrl + ')';
+      const rand = Math.floor(Math.random() * 10000);
+      const baseUrl = origin + '/?username=' + encodeURIComponent(user) + '&theme=' + theme;
+      
+      document.getElementById('card-img').src = baseUrl + '&preview=' + Date.now();
+      
+      // Dodano width="650" podczas kliknięcia w generate!
+      const snippet = '<div align="center">\\n  <img src="' + baseUrl + '&reload=' + rand + '" alt="GitHub RPG Card" width="650" />\\n</div>';
+      document.getElementById('md-code').textContent = snippet;
     }
 
     function copyMarkdown() {
-      const code = document.getElementById('md-code').innerText;
-      navigator.clipboard.writeText(code);
-      const btn = document.getElementById('copy-btn');
-      btn.innerText = '✓ Copied!';
-      setTimeout(() => { btn.innerText = 'Copy Code'; }, 2000);
+      const code = document.getElementById('md-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.innerText = '✓ Copied!';
+        setTimeout(() => { btn.innerText = 'Copy Code'; }, 2000);
+      }).catch(err => {
+        alert("Unable to copy to clipboard.");
+      });
     }
 
     document.getElementById('username').addEventListener('keypress', (e) => {
@@ -554,8 +534,13 @@ export default {
       });
     }
 
+    const cacheUrl = new URL(request.url);
+    cacheUrl.searchParams.delete("reload");
+    cacheUrl.searchParams.delete("preview");
+    cacheUrl.searchParams.delete("v");
+
     const cache = caches.default;
-    const cacheKey = new Request(url.toString(), request);
+    const cacheKey = new Request(cacheUrl.toString(), request);
     let response = await cache.match(cacheKey);
 
     if (response) {
